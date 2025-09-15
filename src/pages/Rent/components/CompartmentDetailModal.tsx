@@ -163,16 +163,7 @@ class CompartmentDetailModal extends Component<CompartmentDetailModalProps, Comp
     };
   };
 
-  handleUpdateStatus = async (rent_id: number) => {
-    try {
-      // TODO: Implement API call to update payment status
-      message.success('Cập nhật trạng thái thành công');
-      await this.loadData(); // Reload data
-    } catch (error) {
-      console.error('Error updating status:', error);
-      message.error('Không thể cập nhật trạng thái');
-    }
-  };
+ 
 
   handleCall = (phoneNumber: string) => {
     this.setState({ 
@@ -244,7 +235,7 @@ class CompartmentDetailModal extends Component<CompartmentDetailModalProps, Comp
               icon={<CheckOutlined />}
               style={{ color: record.payment_status === 1 ? '#999' : '#52c41a' }}
               disabled={record.payment_status === 1}
-              onClick={() => this.handleUpdateStatus(record.rent_id)}
+              
             />
             <Button
               type="text"

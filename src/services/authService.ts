@@ -83,28 +83,24 @@ class AuthService {
     return user ? requiredRole.includes(user.role_id) : false;
   }
 
-  async login(credentials: { email: string; password: string }) {
-    try {
-      const response = await fetch('https://smartbox-back-end.onrender.com/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
-      });
+async login(credentials: LoginRequest) {
+  try {
+    const response = await api.post<LoginResponse & { user: UserInfo }>(
+      '/auth/login',
+      credentials
+    );
 
-      const data = await response.json();
-      
-      if (data.access_token && data.user) {
-        this.setAuthData(data.access_token, data.user);
-        return data;
-      }
-      
-      throw new Error('Login failed');
-    } catch (error) {
-      throw error;
+    if (response.data.access_token && response.data.user) {
+      this.setAuthData(response.data.access_token, response.data.user);
+      return response.data;
     }
+
+    throw new Error('Login failed');
+  } catch (error) {
+    console.error("Login error:", error);
+    throw error;
   }
+}
 }
 
 export const authService = new AuthService();
