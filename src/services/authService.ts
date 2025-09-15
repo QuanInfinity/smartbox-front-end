@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'https://smartbox-back-end.onrender.com/';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -85,7 +85,7 @@ class AuthService {
 
   async login(credentials: { email: string; password: string }) {
     try {
-      const response = await fetch('http://localhost:3000/auth/login', {
+      const response = await fetch('https://smartbox-back-end.onrender.com/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
